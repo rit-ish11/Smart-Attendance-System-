@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Portal - Smart Attendance</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <h2>Teacher Portal - Smart Attendance</h2>
+    </header>
+
+    <main class="teacher-main">
+        <div class="camera-section">
+            <video id="video" width="640" height="480" autoplay></video>
+            <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+            <div class="controls">
+                <button onclick="captureImage()">Capture Attendance</button>
+                <button onclick="startVoiceRecognition()">Voice Attendance</button>
+            </div>
+        </div>
+
+        <div class="recognized-faces" id="recognizedFaces">
+            <h3>Recognized Students</h3>
+            <!-- Boxes with name + roll no will appear here -->
+        </div>
+    </main>
+
+    <script src="teacher_portal.js"></script>
+</body>
+</html>
