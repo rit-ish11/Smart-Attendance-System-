@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Teacher Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f6f9;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      background: #063a71;
+      color: white;
+      padding: 15px 30px;
+    }
+    header img {
+      height: 70px;
+      width: 70px;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+    .header-text {
+      flex-grow: 1;
+      text-align: center;
+    }
+    .college-name {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .college-address {
+      font-size: 14px;
+      margin-top: 4px;
+    }
+    .system-name {
+      font-size: 18px;
+      font-style: italic;
+      font-weight: bold;
+      color: #ffd700;
+      margin-top: 6px;
+    }
+    .container {
+      width: 80%;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #063a71;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .options a {
+      display: block;
+      background: #7b2451;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .options a:hover {
+      background: #063a71;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="{{ url_for('static', filename='images/Logo.png') }}" alt="College Logo">
+    <div class="header-text">
+      <div class="college-name">Atal Bihari Vajpayee Government Institute of Engineering and Technology</div>
+      <div class="college-address">Paragatnagar, Shimla 176060</div>
+      <div class="system-name">Smart Attendance System</div>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2>Welcome, Teacher</h2>
+    <div class="options">
+      <a href="/take_attendance">1. Take Attendance</a>
+      <a href="/view_attendance">2. View Attendance Records</a>
+      <a href="/manage_students">3. Manage Students</a>
+      <a href="/settings">4. Settings</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </div>
+
+</body>
+</html>

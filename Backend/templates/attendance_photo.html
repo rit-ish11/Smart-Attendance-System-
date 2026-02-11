@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Attendance Photo Result</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f6f9; text-align: center; }
+    .card { background: white; padding: 20px; margin: 30px auto; border-radius: 8px; 
+            width: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+    img { max-width: 80%; border-radius: 8px; margin-top: 15px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>📷 Attendance Photo Processed</h2>
+    <p>✅ Present Students: <b>{{ present }}</b></p>
+    <p>❌ Absent Students: <b>{{ absent }}</b></p>
+    <img src="{{ url_for('static', filename='captures/' + image_path) }}" alt="Uploaded Photo">
+    <br><br>
+    <a href="/take_attendance">⬅ Back to Attendance</a>
+  </div>
+</body>
+</html>

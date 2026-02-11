@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Capture</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            text-align: center;
+            background: #004080;
+            color: white;
+            padding: 20px;
+        }
+
+        .header img {
+            height: 60px;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .header p {
+            margin: 5px 0;
+        }
+
+        .top-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            margin: 10px;
+            background: #004080;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background: #0066cc;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+
+        .actions, .stats {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            width: 45%;
+            min-width: 300px;
+            margin: 10px;
+        }
+
+        .actions h2, .stats h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="file"] {
+            margin: 10px 0;
+            display: block;
+        }
+
+        .stats p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .actions, .stats {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='images/Logo.png') }}" alt="College Logo">
+        <h1>Atal Bihari Vajpayee Government Institute of Engineering and Technology</h1>
+    <h2>Paragatnagar, Shimla 171202</h2>
+        
+        <h2>Smart Attendance System</h2>
+    </div>
+
+    <div class="top-section">
+        <!-- Department & Semester Removed -->
+        <a href="{{ url_for('attendance_live') }}" class="btn btn-primary">
+    📹 Take Live Attendance
+</a>
+
+        <button class="btn" onclick="window.location.href='/capture_photo'">📷 Capture Photo Attendance</button>
+    </div>
+
+    <div class="container">
+        <div class="actions">
+            <h2>Attendance Options</h2>
+            <form action="/upload_attendance" method="post" enctype="multipart/form-data">
+                <label>Upload Attendance Photo:</label>
+                <input type="file" name="photo" required>
+                <button class="btn" type="submit">Upload & Process</button>
+            </form>
+            <button class="btn" onclick="window.location.href='/camera_attendance'">📸 Capture From Camera</button>
+        </div>
+
+        <div class="stats">
+            <h2>Attendance Stats</h2>
+            <p>Total Students: <span id="total_students">--</span></p>
+            <p>Present: <span id="present_students">--</span></p>
+            <p>Absent: <span id="absent_students">--</span></p>
+        </div>
+    </div>
+
+    <!-- Live Stats Update Script -->
+    <script>
+        async function updateStats() {
+            try {
+                const response = await fetch("/get_attendance_stats");
+                if (!response.ok) return;
+                const data = await response.json();
+                document.getElementById("total_students").innerText = data.total;
+                document.getElementById("present_students").innerText = data.present;
+                document.getElementById("absent_students").innerText = data.absent;
+            } catch (err) {
+                console.error("Error fetching stats:", err);
+            }
+        }
+        setInterval(updateStats, 5000); // update every 5 seconds
+        updateStats(); // run immediately on load
+    </script>
+</body>
+</html>

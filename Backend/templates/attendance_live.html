@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Attendance</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #stats { margin-top: 20px; font-size: 18px; }
+        .stat { margin: 10px; display: inline-block; padding: 10px 20px; background: #f2f2f2; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Live Attendance</h2>
+
+    <!-- Camera feed -->
+    <img src="/video_feed" width="600" height="400" />
+
+    <!-- Attendance Stats -->
+    <div id="stats">
+        <div class="stat">Total: <span id="total">0</span></div>
+        <div class="stat">Present: <span id="present">0</span></div>
+        <div class="stat">Absent: <span id="absent">0</span></div>
+    </div>
+
+    <!-- Save button -->
+    <button id="saveBtn">Save Attendance</button>
+
+    <script>
+        // Poll backend every 3 seconds
+        function fetchStats() {
+            $.get("/get_attendance_stats", function(data) {
+                $("#total").text(data.total);
+                $("#present").text(data.present);
+                $("#absent").text(data.absent);
+            });
+        }
+
+        setInterval(fetchStats, 3000);
+        fetchStats(); // run immediately once
+
+        // Save attendance
+        $("#saveBtn").click(function() {
+            $.post("/submit_attendance", {}, function(res) {
+                alert(res.message);
+            });
+        });
+    </script>
+</body>
+</html>
